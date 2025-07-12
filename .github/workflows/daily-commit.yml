@@ -2,25 +2,25 @@ name: 📅 Daily Auto Commit
 
 on:
   schedule:
-    - cron: "0 6 * * *"  # Every day at 11:30 AM IST
-  workflow_dispatch:      # Manual trigger option
+    - cron: '0 6 * * *'  # Runs daily at 11:30 AM IST
+  workflow_dispatch:
 
 jobs:
   auto-commit:
     runs-on: ubuntu-latest
+
     steps:
       - name: ⬇️ Checkout Repo
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
 
-      - name: 📝 Make a Daily Log Entry
+      - name: 📝 Make Daily Commit Entry
         run: |
-          echo "🗓️ Commit for $(date)" >> daily-log.md
+          echo "📆 Commit for $(date)" >> daily-log.md
 
-      - name: 🚀 Push Commit
+      - name: 🚀 Push to GitHub
         run: |
           git config --global user.name "Animesh Halder"
           git config --global user.email "animesh.h2004@gmail.com"
           git add .
-          git commit -m "🗓️ Daily contribution: $(date '+%Y-%m-%d')" || echo "No changes to commit"
+          git commit -m "📅 Daily Contribution - $(date '+%Y-%m-%d')" || echo "No changes to commit"
           git push
-
